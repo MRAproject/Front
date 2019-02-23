@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import axios from 'axios'
-import config from '../../config/config'
+import axios from "axios";
+import config from "../../config/config";
+import { connect } from "react-redux";
 
 class Login extends Component {
   constructor(props) {
@@ -8,72 +9,68 @@ class Login extends Component {
     this.state = {
       username: "amitmarko",
       password: "12345",
-      error:""
+      error: ""
     };
   }
-  componentDidMount(){
-    if(sessionStorage.getItem('userData')){
-      this.props.history.push('/dashboard');
+  componentDidMount() {
+    if (sessionStorage.getItem("userData")) {
+      this.props.history.push("/dashboard");
     }
   }
 
-  onChange=(e)=>{
+  onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  }
-  onSubmit=(e)=>{
+  };
+  onSubmit = e => {
     e.preventDefault();
     const data = {
       username: this.state.username,
       password: this.state.password
     };
     this.loginUser(data);
-  }
+  };
 
-  loginUser=async (data)=>{
-    try{
-        const response =await axios.post(`${config.host}/login`,data)
-        if (response.status===200) {
-          sessionStorage.setItem('userData',JSON.stringify(response.data.data));
-          this.props.history.push(`/dashboard`);
-          return;
-        }
+  loginUser = async data => {
+    try {
+      const response = await axios.post(`${config.host}/login`, data);
+      if (response.status === 200) {
+        sessionStorage.setItem("userData", JSON.stringify(response.data.data));
+        this.props.history.push(`/dashboard`);
+        return;
+      }
+    } catch (e) {
+      console.log(e);
+      this.setState({ error: "Incorrect username or password" });
     }
-    catch(e){
-        console.log(e);
-        this.setState({error:'Incorrect username or password'})
-    }
-     
-
-  }
+  };
   render() {
-
     return (
       <div className="login">
-              <h1>Log In</h1>
-              <form onSubmit={this.onSubmit}>
-                <input
-                  name="username"
-                  type="text"
-                  value={this.state.username}
-                  onChange={this.onChange}
-                />
-                <br/>
-                 <input
-                  name="password"
-                  type="passowrd"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                />
-                <br/>
-                <input
-                  type="submit"
-                  value="Submit"
-                />
-              <p>{this.state.error}</p>
-              </form>
+        <h1>Log In</h1>
+        <form onSubmit={this.onSubmit}>
+          <input
+            name="username"
+            type="text"
+            value={this.state.username}
+            onChange={this.onChange}
+          />
+          <br />
+          <input
+            name="password"
+            type="passowrd"
+            value={this.state.password}
+            onChange={this.onChange}
+          />
+          <br />
+          <input type="submit" value="Submit" />
+          <p>{this.state.error}</p>
+        </form>
       </div>
     );
   }
 }
 
-export default Login;
+export default connect(
+  null,
+  null
+)(Login);
