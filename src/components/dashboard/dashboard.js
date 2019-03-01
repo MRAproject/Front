@@ -7,9 +7,8 @@ import {
   getAllCars,
   carsLoading,
   addCar,
-  removeCar
+  removeCar,
 } from "../../actions/carsActions";
-// import { getUser } from "../../actions/userActions";
 import "react-table/react-table.css";
 import Spinner from "../common/spinner/spinner";
 
@@ -21,6 +20,7 @@ class DashBoard extends Component {
       username: "amitmarko",
       firstName: "",
       lastName: "",
+      capcity:0,
       addCar: {
         carNumber: "",
         error: "",
@@ -50,11 +50,12 @@ class DashBoard extends Component {
     this.props.carsLoading();
     this.props.getAllCars("amitmarko");
 
-    // this.setState({
-    //   username: userData.username,
-    //   firstName: userData.firstName,
-    //   lastName: userData.lastName
-    // });
+    this.setState({
+      username: this.props.userData.username,
+      firstName: this.props.userData.firstName,
+      lastName: this.props.userData.lastName,
+      capcity:this.props.userData.capcity
+    });
   }
   
   componentWillReceiveProps(nextProps) {
@@ -178,7 +179,8 @@ class DashBoard extends Component {
 const mapStateToProps = state => {
   return {
     cars: state.carsData.cars,
-    loading: state.carsData.loading
+    loading: state.carsData.loading,
+    userData: state.userData.userData,
   };
 };
 
