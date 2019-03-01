@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from "../config/config";
 
-import { GET_ALL_CARS, ADD_CAR, GET_ALL_CARS_LOADING } from "./types";
+import { GET_ALL_CARS, ADD_CAR, CARS_LOADING, REMOVE_CAR } from "./types";
 
 export const getAllCars = username => {
   const response = axios.get(
@@ -12,15 +12,30 @@ export const getAllCars = username => {
     payload: response
   };
 };
-export const getAllCarsLoading = () => {
+
+export const carsLoading = () => {
   return {
-    type: GET_ALL_CARS_LOADING
+    type: CARS_LOADING
   };
 };
+
 export const addCar = data => {
-  const response = axios.post(`${config.host}/add_car`, data);
+    const response = axios.post(`${config.host}/add_car`, data);
+      
+    return {
+        type: ADD_CAR,
+        payload: response
+    };
+    
+};
+
+export const removeCar = data => {
+
+  const response = axios.post(`${config.host}/remove_car`, data);
+
   return {
-    type: ADD_CAR,
+    type: REMOVE_CAR,
     payload: response
   };
 };
+

@@ -15,6 +15,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 //   }
 // };
 
+// console.log(loadState());
+
 const middleware = [promiseMiddleware];
 const store = createStore(
   rootReducer,

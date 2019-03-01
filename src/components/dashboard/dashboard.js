@@ -5,8 +5,9 @@ import ReactTable from "react-table";
 import { connect } from "react-redux";
 import {
   getAllCars,
-  getAllCarsLoading,
-  addCar
+  carsLoading,
+  addCar,
+  removeCar
 } from "../../actions/carsActions";
 // import { getUser } from "../../actions/userActions";
 import "react-table/react-table.css";
@@ -46,17 +47,20 @@ class DashBoard extends Component {
 
   componentDidMount() {
     // const userData = sessionStorage.getItem("userData");
-    this.props.getAllCarsLoading();
+    this.props.carsLoading();
     this.props.getAllCars("amitmarko");
+
     // this.setState({
     //   username: userData.username,
     //   firstName: userData.firstName,
     //   lastName: userData.lastName
     // });
   }
+  
   componentWillReceiveProps(nextProps) {
     this.setState({ cars: nextProps.cars });
   }
+
   onChangeAddCar = e => {
     this.setState({
       addCar: {
@@ -66,6 +70,7 @@ class DashBoard extends Component {
       }
     });
   };
+
   onChangeRemoveCar = e => {
     this.setState({
       removeCar: {
@@ -75,9 +80,11 @@ class DashBoard extends Component {
       }
     });
   };
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
   onSubmitAddCar = e => {
     e.preventDefault();
     const data = {
@@ -86,61 +93,34 @@ class DashBoard extends Component {
     };
     this.addCar(data);
   };
+  
   onSubmitRemoveCar = e => {
     e.preventDefault();
-    // const data = {
-    //   username: this.state.username,
-    //   carNumber: this.state.removeCar.carNumber
-    // };
-    // this.removeCar(data);
+    const data = {
+      username: this.state.username,
+      carNumber: this.state.removeCar.carNumber
+    };
+    this.removeCar(data);
   };
 
-  // removeCar = async data => {
-  //   let cars = this.state.cars;
-  //   cars.push({
-  //     username: this.state.username,
-  //     carNumber: data.newCar.carNumber,
-  //     isInside: 0
-  //   });
-  //   console.log(cars);
-  //   console.log(cars.length);
-
-  //   try {
-  //     const response = await axios.post(`${config.host}/add_car`, data);
-  //     if (response.data.status === "successful") {
-  //       this.setState({
-  //         removeCar: {
-  //           success: `Car ${data.carNumber} added succefully`,
-  //           error: ""
-  //         },
-  //         cars: cars
-  //       });
-  //     } else {
-  //       this.setState({
-  //         removeCar: {
-  //           success: "",
-  //           error: `Car ${data.carNumber} already exist!`
-  //         }
-  //       });
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  addCar = async data => {
-    let cars = this.state.cars;
-    cars.push({
-      username: this.state.username,
-      carNumber: data.carNumber,
-      isInside: 0
-    });
+  removeCar =  data => {
+    
     try {
-      this.props.addCar(data);
-      this.props.getAllCarsLoading();
-      this.props.getAllCars(this.state.username);
-    } catch (e) {
+      this.props.carsLoading();
+      this.props.removeCar(data);
+    } 
+    catch (e) {
       console.log(e);
+    }
+  };
+
+  addCar = data => {
+    try {
+      this.props.carsLoading();
+      this.props.addCar(data);
+    } 
+    catch (e) {
+       console.log(e);
     }
   };
 
@@ -189,7 +169,7 @@ class DashBoard extends Component {
               {this.state.removeCar.success}
             </p>
           </form>
-          <ReactTable data={this.props.cars} columns={this.state.usersColums} />
+          <ReactTable data={this.state.cars} columns={this.state.usersColums} />
         </div>
       );
     }
@@ -204,5 +184,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getAllCars, getAllCarsLoading, addCar }
+  { getAllCars, carsLoading, addCar,removeCar }
 )(DashBoard);
