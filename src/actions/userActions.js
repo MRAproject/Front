@@ -1,4 +1,4 @@
- import { LOGIN,LOGIN_LOADING } from "./types";
+ import { LOGIN,LOGIN_LOADING,LOGOUT,LOGOUT_LOADING } from "./types";
  import config from "../config/config";
  import axios from "axios";
 
@@ -23,6 +23,17 @@ export const login = (data) => {
   return {
     type: LOGIN,
     payload: response
+  };
+};
+
+export const logoutLoading = () => {
+  return {
+    type: LOGOUT_LOADING
+  };
+};
+export const logout = () => {
+  return {
+    type: LOGOUT
   };
 };
 

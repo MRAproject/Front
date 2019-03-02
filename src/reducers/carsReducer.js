@@ -7,7 +7,11 @@ import {
 
 const initialState = {
   cars: [],
-  loading: false
+  loading: false,
+  errorAdd:'',
+  successAdd:'',
+  errorRemove:'',
+  successRemove:''
 };
 
 export default function(state = initialState, action) {
@@ -21,9 +25,14 @@ export default function(state = initialState, action) {
     case GET_ALL_CARS:
 
       return {
+        errorAdd:'',
+        successAdd:'',
+        errorRemove:'',
+        successRemove:'',
         cars: action.payload.data.data,
         loading: false
       };
+      
     case ADD_CAR:
         if(action.payload.data.status!=='failed'){
           const newCar={
@@ -32,14 +41,20 @@ export default function(state = initialState, action) {
               username:action.payload.data.username    
           }
           return {
+            ...state,
             cars:[...state.cars,newCar],
-            loading: false
+            loading: false,
+            errorAdd:'',
+            successAdd:`Car number ${action.payload.data.carNumber} Added succesfully`,
           };
         }
         else{
           return {
+            ...state,
             cars:[...state.cars],
-            loading: false
+            loading: false,
+            errorAdd:`Car  number ${action.payload.data.carNumber} already exist`,
+            successAdd:'',
           };
         }     
     
@@ -49,8 +64,11 @@ export default function(state = initialState, action) {
         return action.payload.data.carNumber!==car.carNumber
       })
       return {
+        ...state,
         cars,
-        loading: false
+        loading: false,
+        errorRemove:'',
+        successRemove:`Car number ${action.payload.data.carNumber} Removed succesfully`,
       };
 
     default:
