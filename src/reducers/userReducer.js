@@ -1,21 +1,10 @@
-import { LOGIN,LOGIN_LOADING } from "../actions/types";
+import { LOGIN,LOGIN_LOADING,LOGOUT_LOADING,LOGOUT } from "../actions/types";
 
 const initialState = {
   userData: {},
   loading: false
 };
 
-// export default function(state = initialState, action) {
-//   switch (action.type) {
-//   case GET_USER:
-//     return {
-//       userData: action.payload,
-//       loading: false
-//     };
-//   default:
-//   return state;
-//   }
-// }
 export default function(state = initialState, action) {
   switch (action.type) {
   case LOGIN:
@@ -31,6 +20,17 @@ export default function(state = initialState, action) {
     };
 
   case LOGIN_LOADING:
+    return {
+      ...state,
+      loading: true
+    };
+  case LOGOUT:
+    sessionStorage.removeItem('userData');
+    return {
+      userData:{},
+      loading: false
+    };
+  case LOGOUT_LOADING:
     return {
       ...state,
       loading: true
