@@ -8,16 +8,22 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
   case LOGIN:
-        const userData={
-            username:action.payload.data.data.username,
-            firstName:action.payload.data.data.firstName,
-            lastName:action.payload.data.data.lastName,
-            capacity:action.payload.data.data.capacity
+
+        let userData=state.userData;
+
+        if(action.payload.data.status==='authorized'){
+            userData={
+              username:action.payload.data.data.username,
+              firstName:action.payload.data.data.firstName,
+              lastName:action.payload.data.data.lastName,
+              capacity:action.payload.data.data.capacity
+          }
         }
-    return {
-      userData,
-      loading: false
-    };
+        return {
+          userData,
+          loading: false
+        };
+        
 
   case LOGIN_LOADING:
     return {

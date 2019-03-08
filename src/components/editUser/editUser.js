@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { removeCar,carsLoading } from "../../actions/carsActions";
+import {carsLoading } from "../../actions/carsActions";
 import Spinner from "../common/spinner/spinner";
 
 class EditUser extends Component {
@@ -9,7 +9,8 @@ class EditUser extends Component {
 
     this.state = {
         username:'',
-        carNumber: "",
+        firstName:'',
+        lastName:'',
         error: "",
         success: ""
       }
@@ -20,8 +21,10 @@ class EditUser extends Component {
     if (!sessionStorage.getItem("userData")) {
       this.props.history.push("/");
     }
+
     this.setState({
-      username: this.props.userData.userData.username
+      firstName: this.props.userData.userData.firstName,
+      lastName: this.props.userData.userData.lastName
     });
   }
   
@@ -30,10 +33,10 @@ class EditUser extends Component {
       this.props.history.push("/");
     }
 
-    this.setState({
-      error:nextProps.carsData.errorEdit,
-      success:nextProps.carsData.successEdit
-    })
+    // this.setState({
+    //   error:nextProps.userData.errorEdit,
+    //   success:nextProps.userData.successEdit
+    // })
   }
 
   onChange = e => {
@@ -42,10 +45,10 @@ class EditUser extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const data = {
-      username: this.state.username,
-      carNumber: this.state.carNumber
-    };
+    // const data = {
+    //   username: this.state.username,
+    //   carNumber: this.state.carNumber
+    // };
     // this.props.carsLoading();
     // this.props.removeCar(data);
   };
@@ -64,8 +67,8 @@ class EditUser extends Component {
             <input
               required={true}
               type="text"
-              name="carNumber"
-              value={this.state.carNumber}
+              name="firstName"
+              value={this.state.firstName}
               onChange={this.onChange}
             />
             <br/>
@@ -73,8 +76,8 @@ class EditUser extends Component {
             <input
               required={true}
               type="text"
-              name="carNumber"
-              value={this.state.carNumber}
+              name="lastName"
+              value={this.state.lastName}
               onChange={this.onChange}
             />
             <br/>
@@ -100,6 +103,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(
-  mapStateToProps,
-  { removeCar,carsLoading }
+  mapStateToProps,null
 )(EditUser);

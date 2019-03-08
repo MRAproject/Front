@@ -34,6 +34,10 @@ class Login extends Component {
     if (nextProps.userData.username) {
       sessionStorage.setItem("userData", JSON.stringify(nextProps.userData));
       this.props.history.push(`/dashboard`);
+      return;
+    }
+    else{
+      this.setState({error:"User name or passowrd inccorect"})
     }
   }
 
@@ -48,10 +52,10 @@ class Login extends Component {
     else {
       return (
         <div className="login">
-          <video className="login__video" autoPlay muted loop>
+          {/* <video className="login__video" autoPlay muted loop>
             <source src={require('../../../assets/videos/video_login_2.mp4')} type="video/mp4" />
             Your browser is not supported!
-          </video>
+          </video> */}
           <div className="login__content">
             <h1 className="login__header">Sign in</h1>
             <form onSubmit={this.onSubmit} className='login__form'>
@@ -66,7 +70,7 @@ class Login extends Component {
                   required
                   autoFocus
                 />
-                <lable className='login__form__label'>Username</lable>
+                <label className='login__form__label'>Username</label>
               </div>
               <div className='login__form__group'>
                 <input
@@ -78,7 +82,7 @@ class Login extends Component {
                   placeholder='Password'
                   required
                 />
-                <lable className='login__form__label'>Password</lable>
+                <label className='login__form__label'>Password</label>
               </div>
               <div className='login__btn'>
                 <input type="submit" value="Login" className='btn btn-primary' />

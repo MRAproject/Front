@@ -74,8 +74,7 @@ class RemoveCar extends Component {
               {this.state.success}
             </p>
           </form>
-
-        
+   
         </div>
       );
     }
