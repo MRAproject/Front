@@ -1,0 +1,69 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: $font-primary;
+    background-color: rgba(0, 0, 0, .45);
+    &__video {
+        z-index: -1;
+        position: fixed;
+        opacity: .55;
+    }
+    &__content {
+        padding: 5rem;
+        border: 1px solid $color-grey-2;
+        border-radius: 7px;
+        background: $color-white;
+        box-shadow: $shadow-big;
+        animation: comeFromTop 1s;
+      
+    }
+    &__header {
+        text-align: center;
+        font-weight: 400;
+        margin-bottom: 2rem;
+        font-size: 3.8rem;
+        font-weight: 400;
+        color: $color-grey-dark;
+    }
+    &__form {
+        &__group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+        &__label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-left: 2rem;
+            margin-top: .7rem;
+            display: block;
+            transition: all .3s;
+            color: $color-grey-dark;
+        }
+    }
+    &__input {
+        border: none;
+        border-bottom: 2px solid transparent;
+        background-color: $color-grey;
+        padding: 1.5rem 2rem;
+        border-radius: 2px;
+        font-size: 1.5rem;
+        width: 33rem;
+        transition: all .5s;
+        &:focus {
+            border-bottom: 2px solid $color-blueful;
+            outline: none;
+        }
+    }
+    &__input:placeholder-shown+&__form__label {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4rem);
+    }
+    &__btn {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+}

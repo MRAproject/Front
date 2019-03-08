@@ -8,7 +8,7 @@ import Login from "./components/login/login";
 import Navbar from './components/common/navbar/navbar'
 import { Provider } from "react-redux";
 import store from "./store/store";
-import "./App.css";
+import './sass/main.scss';
 
 class App extends Component {
   render() {

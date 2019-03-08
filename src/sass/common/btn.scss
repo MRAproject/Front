@@ -1,0 +1,20 @@
+.btn {
+    border: none;
+    padding: 1.3rem 2.8rem;
+    border-radius: 7px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: all .2s;
+
+    &-primary {
+        background-color: $color-blueful;
+        color: $color-white;
+        font-weight: 600;
+        &:focus{
+            outline: none;
+        }
+        &:hover{
+            background-color: $color-blueful-dark;
+        }
+    }
+}
