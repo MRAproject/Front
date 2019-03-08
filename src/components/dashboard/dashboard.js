@@ -18,7 +18,7 @@ class DashBoard extends Component {
       username: "",
       firstName: "",
       lastName: "",
-      capcity:0,
+      capacity:0,
       cars: [],
       usersColums: [
         {
@@ -29,8 +29,10 @@ class DashBoard extends Component {
           Header: "Is inside",
           accessor: "isInside"
         }
-      ]
-    };
+      ],
+      carsInside:0
+    }
+
   }
 
   componentDidMount() {
@@ -55,10 +57,21 @@ class DashBoard extends Component {
       this.props.history.push("/");
     }
 
+    let carsInside=0;
+    nextProps.carsData.cars.forEach(function(car) {
+      if(car.isInside){
+        carsInside++;
+      }
+    });
+
     this.setState({ 
-      cars: nextProps.carsData.cars
+      cars: nextProps.carsData.cars,
+      capacity:nextProps.userData.userData.capacity,
+      carsInside
     });
   }
+
+
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
