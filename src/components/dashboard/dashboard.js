@@ -3,6 +3,7 @@ import ReactTable from "react-table";
 import { connect } from "react-redux";
 import {
   getAllCars,
+  get_all_times,
   carsLoading,
   addCar,
   removeCar,
@@ -18,8 +19,9 @@ class DashBoard extends Component {
       username: "",
       firstName: "",
       lastName: "",
-      capcity:0,
+      capacity:0,
       cars: [],
+      times:[],
       usersColums: [
         {
           Header: "Car number",
@@ -29,8 +31,10 @@ class DashBoard extends Component {
           Header: "Is inside",
           accessor: "isInside"
         }
-      ]
-    };
+      ],
+      carsInside:0
+    }
+
   }
 
   componentDidMount() {
@@ -46,6 +50,7 @@ class DashBoard extends Component {
       capcity:this.props.userData.userData.capcity
     },()=>{
       this.props.carsLoading();
+      this.props.get_all_times(this.state.username);
       this.props.getAllCars(this.state.username);
     });
   }
@@ -55,10 +60,20 @@ class DashBoard extends Component {
       this.props.history.push("/");
     }
 
+    let carsInside=0;
+    nextProps.carsData.cars.forEach(function(car) {
+      if(car.isInside){
+        carsInside++;
+      }
+    });
+
     this.setState({ 
-      cars: nextProps.carsData.cars
+      cars: nextProps.carsData.cars,
+      carsInside
     });
   }
+
+
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -68,9 +83,7 @@ class DashBoard extends Component {
 
 
   render() {
-    if (this.props.loading) {
-      return <Spinner />;
-    } else {
+
       return (
         <div className="dashboard">
 
@@ -79,10 +92,10 @@ class DashBoard extends Component {
           <h2>
             Welcome {this.state.firstName} {this.state.lastName}
           </h2>
-          <ReactTable data={this.state.cars} columns={this.state.usersColums} />
+          {this.props.loading?<Spinner />:  <ReactTable data={this.state.cars} columns={this.state.usersColums} />}
         </div>
       );
-    }
+    
   }
 }
 const mapStateToProps = state => {
@@ -95,5 +108,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getAllCars, carsLoading, addCar,removeCar }
+  { getAllCars,get_all_times,carsLoading, addCar,removeCar }
 )(DashBoard);

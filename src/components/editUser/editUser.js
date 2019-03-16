@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {carsLoading } from "../../actions/carsActions";
+import {editUserLoading,editUser } from "../../actions/userActions";
 import Spinner from "../common/spinner/spinner";
 
 class EditUser extends Component {
@@ -11,6 +11,8 @@ class EditUser extends Component {
         username:'',
         firstName:'',
         lastName:'',
+        password:'',
+        capacity:'',
         error: "",
         success: ""
       }
@@ -18,13 +20,17 @@ class EditUser extends Component {
   
 
   componentDidMount() {
+
     if (!sessionStorage.getItem("userData")) {
       this.props.history.push("/");
     }
 
     this.setState({
-      firstName: this.props.userData.userData.firstName,
-      lastName: this.props.userData.userData.lastName
+      username:this.props.userData.userData.username,
+      firstName:this.props.userData.userData.firstName,
+      lastName:this.props.userData.userData.lastName,
+      password:this.props.userData.userData.password,
+      capacity:this.props.userData.userData.capacity
     });
   }
   
@@ -33,10 +39,10 @@ class EditUser extends Component {
       this.props.history.push("/");
     }
 
-    // this.setState({
-    //   error:nextProps.userData.errorEdit,
-    //   success:nextProps.userData.successEdit
-    // })
+    this.setState({
+      error:nextProps.userData.errorEdit,
+      success:nextProps.userData.successEdit
+    })
   }
 
   onChange = e => {
@@ -45,12 +51,15 @@ class EditUser extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    // const data = {
-    //   username: this.state.username,
-    //   carNumber: this.state.carNumber
-    // };
-    // this.props.carsLoading();
-    // this.props.removeCar(data);
+    const data = {
+      username:this.state.username,
+      firstName:this.state.firstName,
+      lastName:this.state.lastName,
+      password:this.state.password,
+      capacity:this.state.capacity
+    };
+    this.props.editUserLoading();
+    this.props.editUser(data);
   };
 
 
@@ -63,7 +72,26 @@ class EditUser extends Component {
 
           <h1>Edit user</h1>
           <form onSubmit={this.onSubmit}>
-             <label>First name: </label>
+            <label>username: </label>
+             <input
+              required={true}
+              type="text"
+              disabled={true}
+              name="username"
+              value={this.state.username}
+              onChange={this.onChange}
+            />
+             <br/>
+             <label>password: </label>
+             <input
+              required={true}
+              type="text"
+              name="password"
+              value={this.state.password}
+              onChange={this.onChange}
+            />
+            <br/>
+            <label>First name: </label>
             <input
               required={true}
               type="text"
@@ -78,6 +106,15 @@ class EditUser extends Component {
               type="text"
               name="lastName"
               value={this.state.lastName}
+              onChange={this.onChange}
+            />
+            <br/>
+            <label>capcity: </label>
+             <input
+              required={true}
+              type="text"
+              name="capacity"
+              value={this.state.capacity}
               onChange={this.onChange}
             />
             <br/>
@@ -97,11 +134,11 @@ class EditUser extends Component {
 const mapStateToProps = state => {
   return {
     carsData: state.carsData,
-    loading: state.carsData.loading,
+    loading: state.userData.loading,
     userData: state.userData,
   };
 };
 
 export default connect(
-  mapStateToProps,null
+  mapStateToProps,{editUserLoading,editUser}
 )(EditUser);

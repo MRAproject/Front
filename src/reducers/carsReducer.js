@@ -2,11 +2,13 @@ import {
   ADD_CAR,
   REMOVE_CAR,
   GET_ALL_CARS,
-  CARS_LOADING
+  CARS_LOADING,
+  GET_ALL_TIMES
 } from "../actions/types";
 
 const initialState = {
   cars: [],
+  times:[],
   loading: false,
   errorAdd:'',
   successAdd:'',
@@ -25,6 +27,7 @@ export default function(state = initialState, action) {
     case GET_ALL_CARS:
 
       return {
+        ...state,
         errorAdd:'',
         successAdd:'',
         errorRemove:'',
@@ -32,6 +35,12 @@ export default function(state = initialState, action) {
         cars: action.payload.data.data,
         loading: false
       };
+
+    case GET_ALL_TIMES:
+      return{
+        ...state,
+        times:[...action.payload.data.data],
+      }
       
     case ADD_CAR:
         if(action.payload.data.status!=='failed'){
