@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dashboard from "./components/dashboard/dashboard";
-import AddCar from "./components/addCar/addCar";
-import RemoveCar from './components/removeCar/removeCar';
+// import AddCar from "./components/addCar/addCar";
+// import RemoveCar from './components/removeCar/removeCar';
 import EditUser from './components/editUser/editUser'
 import ManageCars from './components/manageCars/manageCars'
 import Login from "./components/login/login";
