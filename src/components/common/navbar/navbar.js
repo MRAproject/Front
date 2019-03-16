@@ -21,7 +21,7 @@ class Navbar extends Component {
             Dashbaord
           </NavLink>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <NavLink className="nav-link" to="/addcar">
             Add car
           </NavLink>
@@ -30,10 +30,15 @@ class Navbar extends Component {
           <NavLink className="nav-link" to="/removecar">
             Remove car
           </NavLink>
-        </li>
+        </li> */}
         <li className="nav-item">
           <NavLink className="nav-link" to="/edituser">
             Edit user
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/manageCars">
+            Mangage cars
           </NavLink>
         </li>
         <li className="nav-item">

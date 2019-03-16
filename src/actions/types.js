@@ -7,3 +7,6 @@ export const LOGIN="LOGIN";
 export const LOGIN_LOADING="LOGIN_LOADING";
 export const LOGOUT_LOADING="LOGOUT_LOADING";
 export const LOGOUT="LOGOUT";
+export const EDIT="EDIT";
+export const EDIT_LOADING="EDIT_LOADING"
+export const GET_ALL_TIMES="GET_ALL_TIMES"
