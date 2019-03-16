@@ -10,12 +10,13 @@
   &__item {
     padding: 2rem 1rem;
     border-bottom: 1px solid $color-grey-3;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: $color-grey-3;
     display: block;
     text-decoration: none;
+    text-transform: capitalize;
     &-active{
-      background-color: $color-dark-2;
+      background-color: $color-background-dark;
       li {
         color: $color-blueful;
       }
