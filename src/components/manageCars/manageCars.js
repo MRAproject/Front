@@ -22,6 +22,11 @@ class ManageCars extends Component {
           {
             Header: "Is inside",
             accessor: "isInside"
+          },
+          {
+            id: 'delete',
+            accessor: "carNumber",
+            Cell: ({value}) => (<div onClick={()=>this.onSubmitRemove({value})}><img class="garbage"  src="/pictures/garbage.png" title="Remove car" alt="garbage"></img></div>)
           }
         ]
       }
@@ -71,12 +76,13 @@ class ManageCars extends Component {
     this.props.addCar(data);
   };
   
-  onSubmitRemove = e => {
-    e.preventDefault();
+  onSubmitRemove =({value}) => {
+    console.log(value)
     const data = {
       username: this.state.username,
-      carNumber: this.state.carNumber
+      carNumber: value
     };
+    console.log(data);
     this.props.carsLoading();
     this.props.removeCar(data);
   };
@@ -104,7 +110,7 @@ class ManageCars extends Component {
             </p>
           </form>   
           <h1>Remove car</h1>
-          <form onSubmit={this.onSubmitRemove}>
+          {/* <form onSubmit={this.onSubmitRemove}>
             <input
               required={true}
               type="text"
@@ -117,7 +123,7 @@ class ManageCars extends Component {
               {this.state.error}
               {this.state.success}
             </p>
-          </form>
+          </form> */}
 
           {this.props.loading?<Spinner />:  <ReactTable data={this.state.cars} columns={this.state.usersColums} />}
         

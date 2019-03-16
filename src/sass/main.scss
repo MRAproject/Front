@@ -5,3 +5,9 @@
 @import "./common/btn.scss";
 @import "./abstracts/mixins.scss";
 @import "./abstracts/animations.scss";
+
+.garbage{
+    cursor: pointer;
+    width: 5%;
+    height: auto;
+}
