@@ -86,13 +86,12 @@ class DashBoard extends Component {
 
       return (
         <div className="dashboard">
-
-      
           <h1>Dashboard</h1>
           <h2>
             Welcome {this.state.firstName} {this.state.lastName}
           </h2>
-          {this.props.loading?<Spinner />:  <ReactTable data={this.state.cars} columns={this.state.usersColums} />}
+          {/* {this.props.l
+          oading?<Spinner />:  <ReactTable data={this.state.cars} columns={this.state.usersColums} />} */}
         </div>
       );
     

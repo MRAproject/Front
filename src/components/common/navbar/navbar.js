@@ -1,73 +1,46 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { logout,logoutLoading } from '../../../actions/userActions';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import { withRouter } from "react-router";
+import { connect } from "react-redux";
+import { logout, logoutLoading } from "../../../actions/userActions";
 
 class Navbar extends Component {
-
-  onLogoutClick=(e)=>{
+  onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutLoading();
     this.props.logout();
-  }
+  };
 
   render() {
     const { username } = this.props.userData.userData;
-
     const authLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/dashboard">
-            Dashbaord
+      <nav className="nav">
+        <ul className="nav__list">
+          <NavLink className="nav__item" to="/dashboard" activeClassName="nav__item-active">
+            <li className="nav__item__link">Dashbaord</li>
           </NavLink>
-        </li>
-        {/* <li className="nav-item">
-          <NavLink className="nav-link" to="/addcar">
-            Add car
+          <NavLink className="nav__item" to="/edituser" activeClassName="nav__item-active">
+            <li className="nav__item__link">Edit user</li>
           </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/removecar">
-            Remove car
+          <NavLink className="nav__item" to="/manageCars" activeClassName="nav__item-active">
+            <li className="nav__item__link">Mangage cars</li>
           </NavLink>
-        </li> */}
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/edituser">
-            Edit user
+          <NavLink to="/" onClick={this.onLogoutClick} className="nav__item">
+            <li className="nav__item__link">Logout</li>
           </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/manageCars">
-            Mangage cars
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <a
-            href="/"
-            onClick={this.onLogoutClick}
-            className="nav-link"
-          >
-            Logout
-          </a>
-        </li>
-      </ul>
-    );
-
-    return (
-      <nav className="navbar">
-   
-            {username ? authLinks : null}
-
+        </ul>
       </nav>
     );
+
+    return <nav className="navbar">{username ? authLinks : null}</nav>;
   }
 }
-
 
 const mapStateToProps = state => ({
   userData: state.userData
 });
 
-export default connect(mapStateToProps, { logout,logoutLoading })(
-  Navbar
-);
+export default withRouter(connect(
+  mapStateToProps,
+  { logout, logoutLoading }
+)(Navbar));
