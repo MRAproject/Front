@@ -6,8 +6,9 @@ import {
   carsLoading,
   getAllCars
 } from "../../actions/carsActions";
-import Spinner from "../common/spinner/spinner";
 import ReactTable from "react-table";
+import Navbar from "../common/navbar/navbar";
+
 
 class ManageCars extends Component {
   constructor(props) {
@@ -18,23 +19,25 @@ class ManageCars extends Component {
       carNumber: "",
       errorAdd: "",
       successAdd: "",
+      errorRemove:'',
+      successRemove:'',
       cars: [],
       usersColums: [
         {
           Header: "Car number",
-          accessor: "carNumber" // String-based value accessors!
+          accessor: "1" // String-based value accessors!
         },
         {
           Header: "Is inside",
-          accessor: "isInside"
+          accessor: "2"
         },
         {
           id: "delete",
-          accessor: "carNumber",
+          accessor: "1",
           Cell: ({ value }) => (
             <div onClick={() => this.onSubmitRemove({ value })}>
               <img
-                class="garbage"
+                className="garbage"
                 src="/pictures/garbage.png"
                 title="Remove car"
                 alt="garbage"
@@ -73,12 +76,14 @@ class ManageCars extends Component {
     this.setState({
       cars: nextProps.carsData.cars,
       errorAdd: nextProps.carsData.errorAdd,
-      successAdd: nextProps.carsData.successAdd
+      successAdd: nextProps.carsData.successAdd,
+      errorRemove:nextProps.carsData.errorRemove,
+      successRemove:nextProps.carsData.successRemove
     });
   }
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value,errorAdd:'',successAdd:'',errorRemove:'',successRemove:'' });
   };
 
   onSubmitAdd = e => {
@@ -92,51 +97,54 @@ class ManageCars extends Component {
   };
 
   onSubmitRemove = ({ value }) => {
-    console.log(value);
     const data = {
       username: this.state.username,
       carNumber: value
     };
-    console.log(data);
+
     this.props.carsLoading();
     this.props.removeCar(data);
   };
 
   render() {
     return (
-      <div className="manage">
-        <div className="manage__content">
-          <h3 className="manage__header">Manage Cars</h3>
-          <div className="manage__add">
-            <h1 className="manage__add__header">Add new car</h1>
-            <form onSubmit={this.onSubmitAdd} className="manage__add__form">
-              <input
-                required={true}
-                type="text"
-                name="carNumber"
-                placeholder="Enter car number"
-                value={this.state.carNumber}
-                onChange={this.onChange}
-                className="manage__add__form__input"
-              />
-              <input type="submit" value="Submit" className="manage__add__form__submit"/>
-              <p>
-                {this.state.errorAdd}
-                {this.state.successAdd}
-              </p>
-            </form>
-          </div>
+      <div>
+      <Navbar />
+      <div className='content'>
+                <div className="manage">
+                  <div className="manage__content">
+                    <h3 className="manage__header">Manage Cars</h3>
+                    <div className="manage__add">
+                      <h1 className="manage__add__header">Add new car</h1>
+                      <form onSubmit={this.onSubmitAdd} className="manage__add__form">
+                        <input 
+                          required={true}
+                          type="text"
+                          name="carNumber"
+                          placeholder="Enter car number"
+                          value={this.state.carNumber}
+                          onChange={this.onChange}
+                          className={"manage__add__form__input"+(this.state.errorAdd?'__error':'')}
+                        />
+                        <input type="submit" value="Submit" className="manage__add__form__submit"/>
+                        <span className={"manage__add__form__span"+(this.state.errorAdd||this.state.errorRemove?'__error':'')+(this.state.successAdd||this.state.successRemove?'__success':'')}>
+                          {this.state.errorAdd}
+                          {this.state.successAdd}
+                          {this.state.errorRemove}
+                          {this.state.successRemove}
+                        </span>
+                      </form>
+                    </div>
 
-          {this.props.loading ? (
-            <Spinner />
-          ) : (
-            <ReactTable
-              data={this.state.cars}
-              columns={this.state.usersColums}
-              className='manage__table'
-            />
-          )}
-        </div>
+                      <ReactTable
+                        data={this.state.cars}
+                        columns={this.state.usersColums}
+                        className='manage__table'
+                      />
+                  </div>
+                </div>
+      </div>
+
       </div>
     );
   }

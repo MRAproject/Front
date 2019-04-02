@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ReactTable from "react-table";
+// import ReactTable from "react-table";
 import { connect } from "react-redux";
 import {
   getAllCars,
@@ -9,7 +9,9 @@ import {
   removeCar,
 } from "../../actions/carsActions";
 import "react-table/react-table.css";
-import Spinner from "../common/spinner/spinner";
+// import Spinner from "../common/spinner/spinner";
+import Navbar from "../common/navbar/navbar";
+
 
 class DashBoard extends Component {
   constructor(props) {
@@ -50,7 +52,7 @@ class DashBoard extends Component {
       capcity:this.props.userData.userData.capcity
     },()=>{
       this.props.carsLoading();
-      this.props.get_all_times(this.state.username);
+      // this.props.get_all_times(this.state.username);
       this.props.getAllCars(this.state.username);
     });
   }
@@ -85,13 +87,19 @@ class DashBoard extends Component {
   render() {
 
       return (
-        <div className="dashboard">
-          <h1>Dashboard</h1>
-          <h2>
-            Welcome {this.state.firstName} {this.state.lastName}
-          </h2>
-          {/* {this.props.l
-          oading?<Spinner />:  <ReactTable data={this.state.cars} columns={this.state.usersColums} />} */}
+        <div>
+          <Navbar />
+          <div className='content'>
+                <div className="dashboard">
+                  <h1>Dashboard</h1>
+                  <h2>
+                    Welcome {this.state.firstName} {this.state.lastName}
+                  </h2>
+                  {/* {this.props.l
+                  oading?<Spinner />:  <ReactTable data={this.state.cars} columns={this.state.usersColums} />} */}
+                </div>
+          </div>
+
         </div>
       );
     
