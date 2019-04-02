@@ -36,6 +36,14 @@
         border: 2px solid #e8e8e8;
         width: 70%;
         margin-right: 1%;
+        &__error {
+          padding: 1rem 1rem;
+          border-radius: 7px;
+          border: 2px solid red;
+          width: 70%;
+          margin-right: 1%;
+        }
+
       }
       &__submit {
         padding: 0.7rem 1.4rem;
@@ -46,7 +54,25 @@
         font-size: 1.6rem;
         cursor: pointer;
       }
+
+      &__span {
+        &__error {
+          display: block;
+          color: red;
+          font-size: 1.6rem;
+          margin-top: 1rem;
+        }
+        &__success {
+          display: block;
+          color: green;
+          font-size: 1.6rem;
+          margin-top: 1rem;
+        }
+        
+      }
+
     }
+
   }
 }
 

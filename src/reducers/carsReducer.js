@@ -3,7 +3,8 @@ import {
   REMOVE_CAR,
   GET_ALL_CARS,
   CARS_LOADING,
-  GET_ALL_TIMES
+  GET_ALL_TIMES,
+  LOGOUT
 } from "../actions/types";
 
 const initialState = {
@@ -22,10 +23,13 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
+        errorAdd:'',
+        successAdd:'',
+        errorRemove:'',
+        successRemove:'',
         loading: true
       };
     case GET_ALL_CARS:
-
       return {
         ...state,
         errorAdd:'',
@@ -43,12 +47,8 @@ export default function(state = initialState, action) {
       }
       
     case ADD_CAR:
-        if(action.payload.data.status!=='failed'){
-          const newCar={
-              carNumber:action.payload.data.carNumber,
-              isInside:0,
-              username:action.payload.data.username    
-          }
+        if(action.payload.status){
+          const newCar=[action.payload.data.username,action.payload.data.carNumber,0]
           return {
             ...state,
             cars:[...state.cars,newCar],
@@ -68,9 +68,8 @@ export default function(state = initialState, action) {
         }     
     
     case REMOVE_CAR:
-
       const cars=state.cars.filter((car)=>{
-        return action.payload.data.carNumber!==car.carNumber
+        return action.payload.data['carNumber']!==car[1]
       })
       return {
         ...state,
@@ -79,6 +78,14 @@ export default function(state = initialState, action) {
         errorRemove:'',
         successRemove:`Car number ${action.payload.data.carNumber} Removed succesfully`,
       };
+
+    case LOGOUT:
+    return {
+      ...state,
+      cars:[],
+      times:[],
+      loading: false
+    };
 
     default:
       return state;

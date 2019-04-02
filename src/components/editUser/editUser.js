@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { editUserLoading, editUser } from "../../actions/userActions";
 import Spinner from "../common/spinner/spinner";
+import Navbar from "../common/navbar/navbar";
+
 
 class EditUser extends Component {
   constructor(props) {
@@ -57,7 +59,9 @@ class EditUser extends Component {
       capacity: this.state.capacity
     };
     this.props.editUserLoading();
-    this.props.editUser(data);
+    setTimeout(()=>{
+      this.props.editUser(data);
+    },500)
   };
 
   render() {
@@ -65,86 +69,93 @@ class EditUser extends Component {
       return <Spinner />;
     } else {
       return (
-        <div className="edituser">
-        <div className="edituser__content">
-        <div className="edituser__header">
-            <h1>Edit user</h1>
-          </div>
-          <form onSubmit={this.onSubmit} className="edituser__form">
-            <div className="edituser__form__group">
-              <label className="edituser__form__label">username:</label>
-              <input
-                required={true}
-                type="text"
-                disabled={true}
-                name="username"
-                value={this.state.username}
-                onChange={this.onChange}
-                className="edituser__form__input"
-              />
-            </div>
-            <div className="edituser__form__group">
-              <label className="edituser__form__label" htmlFor='password'>password:</label>
-              <input
-                required={true}
-                type="text"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChange}
-                className="edituser__form__input"
-                id='password'
-              />
-            </div>
-            <div className="edituser__form__group">
-              <label className="edituser__form__label" htmlFor="firstName">
-                First name:
-              </label>
-              <input
-                required={true}
-                type="text"
-                name="firstName"
-                value={this.state.firstName}
-                onChange={this.onChange}
-                className="edituser__form__input"
-                id="firstName"
-              />
-            </div>
+        <div>
+                 <Navbar />
 
-            <div className="edituser__form__group">
-              <label className="edituser__form__label" htmlFor='lastName'>Last name:</label>
-              <input
-                required={true}
-                type="text"
-                name="lastName"
-                value={this.state.lastName}
-                onChange={this.onChange}
-                className="edituser__form__input"
-                id='lastName'
-              />
-            </div>
+        <div className='content'>
+            <div className="edituser">
+            <div className="edituser__content">
+            <div className="edituser__header">
+                <h1>Edit user</h1>
+              </div>
+              <form onSubmit={this.onSubmit} className="edituser__form">
+                <div className="edituser__form__group">
+                  <label className="edituser__form__label">username:</label>
+                  <input
+                    required={true}
+                    type="text"
+                    disabled={true}
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.onChange}
+                    className="edituser__form__input"
+                  />
+                </div>
+                <div className="edituser__form__group">
+                  <label className="edituser__form__label" htmlFor='password'>password:</label>
+                  <input
+                    required={true}
+                    type="text"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    className="edituser__form__input"
+                    id='password'
+                  />
+                </div>
+                <div className="edituser__form__group">
+                  <label className="edituser__form__label" htmlFor="firstName">
+                    First name:
+                  </label>
+                  <input
+                    required={true}
+                    type="text"
+                    name="firstName"
+                    value={this.state.firstName}
+                    onChange={this.onChange}
+                    className="edituser__form__input"
+                    id="firstName"
+                  />
+                </div>
 
-            <div className="edituser__form__group">
-              <label className="edituser__form__label" htmlFor='capcity'>capcity:</label>
-              <input
-                required={true}
-                type="text"
-                name="capacity"
-                value={this.state.capacity}
-                onChange={this.onChange}
-                className="edituser__form__input"
-                id='capcity'
-              />
-            </div>
+                <div className="edituser__form__group">
+                  <label className="edituser__form__label" htmlFor='lastName'>Last name:</label>
+                  <input
+                    required={true}
+                    type="text"
+                    name="lastName"
+                    value={this.state.lastName}
+                    onChange={this.onChange}
+                    className="edituser__form__input"
+                    id='lastName'
+                  />
+                </div>
 
-            <div className="edituser__form__submit">
-              <input type="submit" value="Submit" className="edituser__form__submit-input"/>
+                <div className="edituser__form__group">
+                  <label className="edituser__form__label" htmlFor='capcity'>capcity:</label>
+                  <input
+                    required={true}
+                    type="text"
+                    name="capacity"
+                    value={this.state.capacity}
+                    onChange={this.onChange}
+                    className="edituser__form__input"
+                    id='capcity'
+                  />
+                </div>
+
+                <div className="edituser__form__submit">
+                  <input type="submit" value="Submit" className="edituser__form__submit-input"/>
+                </div>
+                <p>
+                  {this.state.error}
+                  {this.state.success}
+                </p>
+              </form>
             </div>
-            <p>
-              {this.state.error}
-              {this.state.success}
-            </p>
-          </form>
+            </div>
         </div>
+
         </div>
       );
     }

@@ -12,11 +12,11 @@ export default function(state = initialState, action) {
         let userData=state.userData;
         if(action.payload.data.status==='authorized'){
             userData={
-              username:action.payload.data.data.username,
-              firstName:action.payload.data.data.firstName,
-              lastName:action.payload.data.data.lastName,
-              capacity:action.payload.data.data.capacity,
-              password:action.payload.data.data.password
+              username:action.payload.data.body[0],
+              password:action.payload.data.body[1],
+              firstName:action.payload.data.body[2],
+              lastName:action.payload.data.body[3],
+              capacity:action.payload.data.body[4],
           }
         }
         return {
@@ -43,12 +43,13 @@ export default function(state = initialState, action) {
     };
 
   case EDIT:
+    const{username,firstName,lastName,capacity,password}=action.payload.data.data;
     var userData={
-      username:action.payload.data.data.username,
-      firstName:action.payload.data.data.firstName,
-      lastName:action.payload.data.data.lastName,
-      capacity:action.payload.data.data.capacity,
-      password:action.payload.data.data.password
+      username,
+      firstName,
+      lastName,
+      capacity,
+      password
     }
     sessionStorage.setItem('userData',JSON.stringify(userData))
     return{

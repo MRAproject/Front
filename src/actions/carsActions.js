@@ -28,8 +28,8 @@ export const get_all_times=(username)=>{
   };
 }
 export const addCar = data => {
+
     const response = axios.post(`${config.host}/add_car`, data);
-      
     return {
         type: ADD_CAR,
         payload: response
