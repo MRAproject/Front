@@ -30,16 +30,15 @@ class Login extends Component {
     this.loginUser(data);
   };
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     if (nextProps.userData.username) {
       sessionStorage.setItem("userData", JSON.stringify(nextProps.userData));
       this.props.history.push(`/dashboard`);
       return;
+    } else {
+      this.setState({ error: "User name or passowrd inccorect" });
     }
-    else{
-      this.setState({error:"User name or passowrd inccorect"})
-    }
-  }
+  };
 
   loginUser = data => {
     this.props.loginLoading();
@@ -48,8 +47,7 @@ class Login extends Component {
   render() {
     if (this.props.loading) {
       return <Spinner />;
-    }
-    else {
+    } else {
       return (
         <div className="login">
           {/* <video className="login__video" autoPlay muted loop>
@@ -58,44 +56,46 @@ class Login extends Component {
           </video> */}
           <div className="login__content">
             <h1 className="login__header">Sign in</h1>
-            <form onSubmit={this.onSubmit} className='login__form'>
-              <div className='login__form__group'>
+            <form onSubmit={this.onSubmit} className="login__form">
+              <div className="login__form__group">
                 <input
                   name="username"
                   type="text"
                   value={this.state.username}
                   onChange={this.onChange}
-                  className='login__input'
-                  placeholder='Username'
+                  className="login__input"
+                  placeholder="Username"
                   required
                   autoFocus
                 />
-                <label className='login__form__label'>Username</label>
+                <label className="login__form__label">Username</label>
               </div>
-              <div className='login__form__group'>
+              <div className="login__form__group">
                 <input
                   name="password"
                   type="password"
                   value={this.state.password}
                   onChange={this.onChange}
-                  className='login__input'
-                  placeholder='Password'
+                  className="login__input"
+                  placeholder="Password"
                   required
                 />
-                <label className='login__form__label'>Password</label>
+                <label className="login__form__label">Password</label>
               </div>
-              <div className='login__btn'>
-                <input type="submit" value="Login" className='btn btn-primary' />
+              <div className="login__btn">
+                <input
+                  type="submit"
+                  value="Login"
+                  className="btn btn-primary"
+                />
               </div>
-              <p className='login__error'>{this.state.error}</p>
+              <p className="login__error">{this.state.error}</p>
             </form>
           </div>
         </div>
       );
     }
   }
-
-
 }
 
 const mapStateToProps = state => {
@@ -105,5 +105,7 @@ const mapStateToProps = state => {
   };
 };
 
-
-export default connect(mapStateToProps, { login, loginLoading })(Login);
+export default connect(
+  mapStateToProps,
+  { login, loginLoading }
+)(Login);

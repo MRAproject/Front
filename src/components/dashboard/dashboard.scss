@@ -2,6 +2,13 @@
   width: 100%;
   padding: 20px;
 
+  &__username {
+    color: #f7f7f7;
+    display: block;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
   &__content {
     display: flex;
     // align-items: flex-start;
@@ -17,5 +24,14 @@
     background-color: #f7f7f7;
     padding: 2rem;
     border-radius: 4px;
+
+    &__doughnut {
+      padding: 10px;
+    }
+
+    &__graph {
+      padding: 10px;
+      margin-top: 50px;
+    }
   }
 }
