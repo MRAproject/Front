@@ -9,7 +9,6 @@ import {
 import ReactTable from "react-table";
 import Navbar from "../common/navbar/navbar";
 
-
 class ManageCars extends Component {
   constructor(props) {
     super(props);
@@ -19,21 +18,21 @@ class ManageCars extends Component {
       carNumber: "",
       errorAdd: "",
       successAdd: "",
-      errorRemove:'',
-      successRemove:'',
+      errorRemove: "",
+      successRemove: "",
       cars: [],
-      usersColums: [
+      carsColums: [
         {
           Header: "Car number",
-          accessor: "1" // String-based value accessors!
+          accessor: "carNumber" // String-based value accessors!
         },
         {
           Header: "Is inside",
-          accessor: "2"
+          accessor: "isInside"
         },
         {
           id: "delete",
-          accessor: "1",
+          accessor: "carNumber",
           Cell: ({ value }) => (
             <div onClick={() => this.onSubmitRemove({ value })}>
               <img
@@ -77,13 +76,19 @@ class ManageCars extends Component {
       cars: nextProps.carsData.cars,
       errorAdd: nextProps.carsData.errorAdd,
       successAdd: nextProps.carsData.successAdd,
-      errorRemove:nextProps.carsData.errorRemove,
-      successRemove:nextProps.carsData.successRemove
+      errorRemove: nextProps.carsData.errorRemove,
+      successRemove: nextProps.carsData.successRemove
     });
   }
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value,errorAdd:'',successAdd:'',errorRemove:'',successRemove:'' });
+    this.setState({
+      [e.target.name]: e.target.value,
+      errorAdd: "",
+      successAdd: "",
+      errorRemove: "",
+      successRemove: ""
+    });
   };
 
   onSubmitAdd = e => {
@@ -109,42 +114,58 @@ class ManageCars extends Component {
   render() {
     return (
       <div>
-      <Navbar />
-      <div className='content'>
-                <div className="manage">
-                  <div className="manage__content">
-                    <h3 className="manage__header">Manage Cars</h3>
-                    <div className="manage__add">
-                      <h1 className="manage__add__header">Add new car</h1>
-                      <form onSubmit={this.onSubmitAdd} className="manage__add__form">
-                        <input 
-                          required={true}
-                          type="text"
-                          name="carNumber"
-                          placeholder="Enter car number"
-                          value={this.state.carNumber}
-                          onChange={this.onChange}
-                          className={"manage__add__form__input"+(this.state.errorAdd?'__error':'')}
-                        />
-                        <input type="submit" value="Submit" className="manage__add__form__submit"/>
-                        <span className={"manage__add__form__span"+(this.state.errorAdd||this.state.errorRemove?'__error':'')+(this.state.successAdd||this.state.successRemove?'__success':'')}>
-                          {this.state.errorAdd}
-                          {this.state.successAdd}
-                          {this.state.errorRemove}
-                          {this.state.successRemove}
-                        </span>
-                      </form>
-                    </div>
+        <Navbar />
+        <div className="content">
+          <div className="manage">
+            <div className="manage__content">
+              <h3 className="manage__header">Manage Cars</h3>
+              <div className="manage__add">
+                <h1 className="manage__add__header">Add new car</h1>
+                <form onSubmit={this.onSubmitAdd} className="manage__add__form">
+                  <input
+                    required={true}
+                    type="text"
+                    name="carNumber"
+                    placeholder="Enter car number"
+                    value={this.state.carNumber}
+                    onChange={this.onChange}
+                    className={
+                      "manage__add__form__input" +
+                      (this.state.errorAdd ? "__error" : "")
+                    }
+                  />
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className="manage__add__form__submit"
+                  />
+                  <span
+                    className={
+                      "manage__add__form__span" +
+                      (this.state.errorAdd || this.state.errorRemove
+                        ? "__error"
+                        : "") +
+                      (this.state.successAdd || this.state.successRemove
+                        ? "__success"
+                        : "")
+                    }
+                  >
+                    {this.state.errorAdd}
+                    {this.state.successAdd}
+                    {this.state.errorRemove}
+                    {this.state.successRemove}
+                  </span>
+                </form>
+              </div>
 
-                      <ReactTable
-                        data={this.state.cars}
-                        columns={this.state.usersColums}
-                        className='manage__table'
-                      />
-                  </div>
-                </div>
-      </div>
-
+              <ReactTable
+                data={this.state.cars}
+                columns={this.state.carsColums}
+                className="manage__table"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
