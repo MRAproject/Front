@@ -1,6 +1,7 @@
 @import "./abstracts/mixins";
 @import "./base/base.scss";
 @import "./abstracts/variables";
+@import "../components/dashboard/dashboard.scss";
 @import "../components/login/login.scss";
 @import "../components/editUser/editUser.scss";
 @import "../components/manageCars/manageCars.scss";

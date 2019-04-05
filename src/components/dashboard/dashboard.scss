@@ -1,7 +1,21 @@
 .dashboard {
+  width: 100%;
+  padding: 20px;
+
+  &__content {
+    display: flex;
+    // align-items: flex-start;
+  }
   &__left {
     background-color: white;
-    width: 500px;
-    height: 500px;
+    width: 50% !important;
+  }
+
+  &__right {
+    margin-left: 20px;
+    width: 50% !important;
+    background-color: #f7f7f7;
+    padding: 2rem;
+    border-radius: 4px;
   }
 }
