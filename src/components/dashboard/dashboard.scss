@@ -21,17 +21,22 @@
   &__right {
     margin-left: 20px;
     width: 50% !important;
-    background-color: #f7f7f7;
-    padding: 2rem;
-    border-radius: 4px;
 
     &__doughnut {
       padding: 10px;
+      background-color: #f7f7f7;
+      padding: 2rem;
+      border-radius: 4px;
+      height: 50%;
     }
 
     &__graph {
       padding: 10px;
-      margin-top: 50px;
+      margin-top: 1%;
+      background-color: #f7f7f7;
+      padding: 2rem;
+      border-radius: 4px;
+      height: 49%;
     }
   }
 }
