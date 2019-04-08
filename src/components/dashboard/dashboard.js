@@ -26,15 +26,15 @@ class DashBoard extends Component {
       times: [],
       timesColumns: [
         {
-          Header: "car number",
+          Header: "Car Number",
           accessor: "carNumber" // String-based value accessors!
         },
         {
-          Header: "enter",
+          Header: "Enter",
           accessor: "enter" // String-based value accessors!
         },
         {
-          Header: "exit",
+          Header: "Exit",
           accessor: "exit"
         }
       ],
@@ -46,13 +46,14 @@ class DashBoard extends Component {
     if (!sessionStorage.getItem("userData")) {
       this.props.history.push("/");
     }
-
+    const intervalId = setInterval(this.getData, 1000);
     this.setState(
       {
         username: this.props.userData.userData.username,
         firstName: this.props.userData.userData.firstName,
         lastName: this.props.userData.userData.lastName,
-        capacity: this.props.userData.userData.capacity
+        capacity: this.props.userData.userData.capacity,
+        intervalId
       },
       () => {
         this.props.carsLoading();
@@ -61,6 +62,16 @@ class DashBoard extends Component {
       }
     );
   }
+
+  getData = () => {
+    console.log(this.state);
+    this.props.get_times(this.state.username);
+    this.props.getAllCars(this.state.username);
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.state.intervalId);
+  };
 
   componentWillReceiveProps(nextProps) {
     if (!sessionStorage.getItem("userData")) {
@@ -73,9 +84,10 @@ class DashBoard extends Component {
         carsInside++;
       }
     });
+    console.log('nextProps',nextProps)
 
     this.setState({
-      username: nextProps.carsData.username,
+      // username: nextProps.carsData.username,
       cars: nextProps.carsData.cars,
       times: nextProps.carsData.times,
       carsInside
@@ -161,6 +173,8 @@ class DashBoard extends Component {
         .trim();
       isInRange(HH_MM);
     });
+
+    console.log(total_enteries)
 
     const data_v2 = {
       labels: [
