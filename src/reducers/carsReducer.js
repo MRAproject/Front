@@ -60,11 +60,18 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        times: [...times]
+        times: [...times.reverse()]
       };
 
     case ADD_CAR:
-      if (action.payload.status) {
+      if (action.payload.data.status === "failed") {
+        return {
+          ...state,
+          loading: false,
+          errorAdd: `${action.payload.data.message}`,
+          successAdd: ""
+        };
+      } else {
         const newCar = {
           username: action.payload.data.username,
           carNumber: action.payload.data.carNumber,
@@ -79,18 +86,7 @@ export default function(state = initialState, action) {
             action.payload.data.carNumber
           } Added succesfully`
         };
-      } else {
-        return {
-          ...state,
-          cars: [...state.cars],
-          loading: false,
-          errorAdd: `Car  number ${
-            action.payload.data.carNumber
-          } already exist`,
-          successAdd: ""
-        };
       }
-
     case REMOVE_CAR:
       const cars = state.cars.filter(car => {
         return action.payload.data["carNumber"] !== car["carNumber"];

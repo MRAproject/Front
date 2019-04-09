@@ -24,6 +24,7 @@ class DashBoard extends Component {
       capacity: 0,
       cars: [],
       times: [],
+      intervalId: "",
       timesColumns: [
         {
           Header: "Car Number",
@@ -84,7 +85,7 @@ class DashBoard extends Component {
         carsInside++;
       }
     });
-    console.log('nextProps',nextProps)
+    console.log("nextProps", nextProps);
 
     this.setState({
       // username: nextProps.carsData.username,
@@ -174,7 +175,7 @@ class DashBoard extends Component {
       isInRange(HH_MM);
     });
 
-    console.log(total_enteries)
+    console.log(total_enteries);
 
     const data_v2 = {
       labels: [
