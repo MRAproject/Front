@@ -10,7 +10,6 @@ import {
   removeCar
 } from "../../actions/carsActions";
 import "react-table/react-table.css";
-// import Spinner from "../common/spinner/spinner";
 import Navbar from "../common/navbar/navbar";
 
 class DashBoard extends Component {
@@ -65,7 +64,6 @@ class DashBoard extends Component {
   }
 
   getData = () => {
-    console.log(this.state);
     this.props.get_times(this.state.username);
     this.props.getAllCars(this.state.username);
   };
@@ -85,7 +83,6 @@ class DashBoard extends Component {
         carsInside++;
       }
     });
-    console.log("nextProps", nextProps);
 
     this.setState({
       // username: nextProps.carsData.username,
@@ -132,38 +129,6 @@ class DashBoard extends Component {
         }
       });
     }
-    // const times = [
-    //   {
-    //     carNumber: "12345",
-    //     enter: "16/03/19, 15:48",
-    //     exit: "16/03/19, 15:50",
-    //     username: "amitmarko"
-    //   },
-    //   {
-    //     carNumber: "12345",
-    //     enter: "16/03/19, 00:48",
-    //     exit: "16/03/19, 15:50",
-    //     username: "amitmarko"
-    //   },
-    //   {
-    //     carNumber: "12345",
-    //     enter: "16/03/19, 15:48",
-    //     exit: "16/03/19, 15:50",
-    //     username: "amitmarko"
-    //   },
-    //   {
-    //     carNumber: "12345",
-    //     enter: "16/03/19, 15:48",
-    //     exit: "16/03/19, 15:50",
-    //     username: "amitmarko"
-    //   },
-    //   {
-    //     carNumber: "12345",
-    //     enter: "16/03/19, 15:48",
-    //     exit: "16/03/19, 15:50",
-    //     username: "amitmarko"
-    //   }
-    // ];
 
     this.state.times.forEach(element => {
       total_enteries++;
@@ -174,8 +139,6 @@ class DashBoard extends Component {
         .trim();
       isInRange(HH_MM);
     });
-
-    console.log(total_enteries);
 
     const data_v2 = {
       labels: [

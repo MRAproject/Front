@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { editUserLoading, editUser } from "../../actions/userActions";
-import Spinner from "../common/spinner/spinner";
 import Navbar from "../common/navbar/navbar";
-
 
 class EditUser extends Component {
   constructor(props) {
@@ -30,7 +28,9 @@ class EditUser extends Component {
       firstName: this.props.userData.userData.firstName,
       lastName: this.props.userData.userData.lastName,
       password: this.props.userData.userData.password,
-      capacity: this.props.userData.userData.capacity
+      capacity: this.props.userData.userData.capacity,
+      success: "",
+      error: ""
     });
   }
 
@@ -46,7 +46,7 @@ class EditUser extends Component {
   }
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value, success: "", error: "" });
   };
 
   onSubmit = e => {
@@ -58,24 +58,19 @@ class EditUser extends Component {
       password: this.state.password,
       capacity: this.state.capacity
     };
-    this.props.editUserLoading();
-    setTimeout(()=>{
-      this.props.editUser(data);
-    },500)
+    // this.props.editUserLoading();
+    this.props.editUser(data);
   };
 
   render() {
-    if (this.props.loading) {
-      return <Spinner />;
-    } else {
-      return (
-        <div>
-                 <Navbar />
+    return (
+      <div>
+        <Navbar />
 
-        <div className='content'>
-            <div className="edituser">
+        <div className="content">
+          <div className="edituser">
             <div className="edituser__content">
-            <div className="edituser__header">
+              <div className="edituser__header">
                 <h1>Edit user</h1>
               </div>
               <form onSubmit={this.onSubmit} className="edituser__form">
@@ -92,7 +87,9 @@ class EditUser extends Component {
                   />
                 </div>
                 <div className="edituser__form__group">
-                  <label className="edituser__form__label" htmlFor='password'>password:</label>
+                  <label className="edituser__form__label" htmlFor="password">
+                    password:
+                  </label>
                   <input
                     required={true}
                     type="text"
@@ -100,7 +97,7 @@ class EditUser extends Component {
                     value={this.state.password}
                     onChange={this.onChange}
                     className="edituser__form__input"
-                    id='password'
+                    id="password"
                   />
                 </div>
                 <div className="edituser__form__group">
@@ -119,7 +116,9 @@ class EditUser extends Component {
                 </div>
 
                 <div className="edituser__form__group">
-                  <label className="edituser__form__label" htmlFor='lastName'>Last name:</label>
+                  <label className="edituser__form__label" htmlFor="lastName">
+                    Last name:
+                  </label>
                   <input
                     required={true}
                     type="text"
@@ -127,12 +126,14 @@ class EditUser extends Component {
                     value={this.state.lastName}
                     onChange={this.onChange}
                     className="edituser__form__input"
-                    id='lastName'
+                    id="lastName"
                   />
                 </div>
 
                 <div className="edituser__form__group">
-                  <label className="edituser__form__label" htmlFor='capcity'>capcity:</label>
+                  <label className="edituser__form__label" htmlFor="capcity">
+                    capcity:
+                  </label>
                   <input
                     required={true}
                     type="text"
@@ -140,31 +141,40 @@ class EditUser extends Component {
                     value={this.state.capacity}
                     onChange={this.onChange}
                     className="edituser__form__input"
-                    id='capcity'
+                    id="capcity"
                   />
                 </div>
 
                 <div className="edituser__form__submit">
-                  <input type="submit" value="Submit" className="edituser__form__submit-input"/>
+                  <span
+                    className={
+                      "edituser__form__submit__span" +
+                      (this.state.error ? "__error" : "") +
+                      (this.state.success ? "__success" : "")
+                    }
+                  >
+                    {this.state.error}
+                    {this.state.success}
+                  </span>
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className="edituser__form__submit-input"
+                  />
                 </div>
-                <p>
-                  {this.state.error}
-                  {this.state.success}
-                </p>
               </form>
             </div>
-            </div>
+          </div>
         </div>
-
-        </div>
-      );
-    }
+      </div>
+    );
   }
 }
 const mapStateToProps = state => {
   return {
     carsData: state.carsData,
     loading: state.userData.loading,
+    successEdit: state.userData.successEdit,
     userData: state.userData
   };
 };

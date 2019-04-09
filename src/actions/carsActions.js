@@ -42,7 +42,6 @@ export const addCar = data => {
 };
 
 export const removeCar = data => {
-  console.log(data);
   const response = axios.post(`${config.host}/remove_car`, data);
 
   return {

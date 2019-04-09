@@ -20,6 +20,7 @@ class ManageCars extends Component {
       successAdd: "",
       errorRemove: "",
       successRemove: "",
+      intervalId: "",
       cars: [],
       carsColums: [
         {
@@ -52,13 +53,14 @@ class ManageCars extends Component {
     if (!sessionStorage.getItem("userData")) {
       this.props.history.push("/");
     }
-
+    const intervalId = setInterval(this.getData, 1000);
     this.setState(
       {
         username: this.props.userData.userData.username,
         firstName: this.props.userData.userData.firstName,
         lastName: this.props.userData.userData.lastName,
-        capcity: this.props.userData.userData.capcity
+        capcity: this.props.userData.userData.capcity,
+        intervalId
       },
       () => {
         this.props.carsLoading();
@@ -66,6 +68,13 @@ class ManageCars extends Component {
       }
     );
   }
+  getData = () => {
+    console.log("interval manage cars");
+    this.props.getAllCars(this.state.username);
+  };
+  componentWillUnmount = () => {
+    clearInterval(this.state.intervalId);
+  };
 
   componentWillReceiveProps(nextProps) {
     if (!sessionStorage.getItem("userData")) {

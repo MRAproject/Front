@@ -4,7 +4,7 @@ import spinner from "./spinner.gif";
 export default class Spinner extends Component {
   render() {
     return (
-      <div>
+      <div className="spinner__center">
         <img
           src={spinner}
           style={{ width: "200px", margin: "auto", display: "block" }}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addCar,carsLoading } from "../../actions/carsActions";
+import { addCar, carsLoading } from "../../actions/carsActions";
 import Spinner from "../common/spinner/spinner";
 
 class AddCar extends Component {
@@ -8,13 +8,12 @@ class AddCar extends Component {
     super(props);
 
     this.state = {
-        username:'',
-        carNumber: "",
-        error: "",
-        success: ""
-      }
+      username: "",
+      carNumber: "",
+      error: "",
+      success: ""
     };
-  
+  }
 
   componentDidMount() {
     this.setState({
@@ -25,16 +24,16 @@ class AddCar extends Component {
       this.props.history.push("/");
     }
   }
-  
+
   componentWillReceiveProps(nextProps) {
     if (!sessionStorage.getItem("userData")) {
       this.props.history.push("/");
     }
 
     this.setState({
-      error:nextProps.carsData.errorAdd,
-      success:nextProps.carsData.successAdd
-    })
+      error: nextProps.carsData.errorAdd,
+      success: nextProps.carsData.successAdd
+    });
   }
 
   onChange = e => {
@@ -49,48 +48,40 @@ class AddCar extends Component {
     };
     this.props.carsLoading();
     this.props.addCar(data);
-    
   };
 
   render() {
-    if (this.props.loading) {
-      return <Spinner />;
-    } else {
-      return (
-        <div className="dashboard">
-
-          <h1>Add car</h1>
-          <form onSubmit={this.onSubmit}>
-            <label>Add new car: </label>
-            <input
-              required={true}
-              type="text"
-              name="carNumber"
-              value={this.state.carNumber}
-              onChange={this.onChange}
-            />
-            <input type="submit" value="Submit" />
-            <p>
-              {this.state.error}
-              {this.state.success}
-            </p>
-          </form>
-
-        
-        </div>
-      );
-    }
+    return (
+      <div className="dashboard">
+        <h1>Add car</h1>
+        <form onSubmit={this.onSubmit}>
+          <label>Add new car: </label>
+          <input
+            required={true}
+            type="text"
+            name="carNumber"
+            value={this.state.carNumber}
+            onChange={this.onChange}
+          />
+          <input type="submit" value="Submit" />
+          <p>
+            {this.state.error}
+            {this.state.success}
+          </p>
+        </form>
+      </div>
+    );
   }
 }
 const mapStateToProps = state => {
   return {
     carsData: state.carsData,
     loading: state.carsData.loading,
-    userData: state.userData,
+    userData: state.userData
   };
 };
 
 export default connect(
   mapStateToProps,
-  { addCar,carsLoading }
+  { addCar, carsLoading }
 )(AddCar);

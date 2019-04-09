@@ -84,7 +84,7 @@ export default function(state = initialState, action) {
           errorAdd: "",
           successAdd: `Car number ${
             action.payload.data.carNumber
-          } Added succesfully`
+          } added succesfully`
         };
       }
     case REMOVE_CAR:
@@ -98,7 +98,7 @@ export default function(state = initialState, action) {
         errorRemove: "",
         successRemove: `Car number ${
           action.payload.data.carNumber
-        } Removed succesfully`
+        } removed succesfully`
       };
 
     case LOGOUT:
