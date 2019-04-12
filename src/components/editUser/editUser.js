@@ -39,10 +39,20 @@ class EditUser extends Component {
       this.props.history.push("/");
     }
 
-    this.setState({
-      error: nextProps.userData.errorEdit,
-      success: nextProps.userData.successEdit
-    });
+    this.setState(
+      {
+        error: nextProps.userData.errorEdit,
+        success: nextProps.userData.successEdit
+      },
+      () => {
+        if (this.state.error || this.state.success) {
+          const message = this.state.error
+            ? this.state.error
+            : this.state.success;
+          alert(message);
+        }
+      }
+    );
   }
 
   onChange = e => {
@@ -146,16 +156,6 @@ class EditUser extends Component {
                 </div>
 
                 <div className="edituser__form__submit">
-                  <span
-                    className={
-                      "edituser__form__submit__span" +
-                      (this.state.error ? "__error" : "") +
-                      (this.state.success ? "__success" : "")
-                    }
-                  >
-                    {this.state.error}
-                    {this.state.success}
-                  </span>
                   <input
                     type="submit"
                     value="Submit"
